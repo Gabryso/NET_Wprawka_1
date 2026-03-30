@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WA1.Data;
 
@@ -11,9 +12,11 @@ using WA1.Data;
 namespace WA1.Migrations
 {
     [DbContext(typeof(HeroesContext))]
-    partial class HeroesContextModelSnapshot : ModelSnapshot
+    [Migration("20260330071329_OtM2_AddCategory")]
+    partial class OtM2_AddCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +24,6 @@ namespace WA1.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("HeroMission", b =>
-                {
-                    b.Property<int>("HeroesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MissionsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("HeroesId", "MissionsId");
-
-                    b.HasIndex("MissionsId");
-
-                    b.ToTable("HeroMission");
-                });
 
             modelBuilder.Entity("HeroMovie", b =>
                 {
@@ -113,34 +101,6 @@ namespace WA1.Migrations
                     b.ToTable("Hero");
                 });
 
-            modelBuilder.Entity("WA1.Models.Mission", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime?>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Mission");
-                });
-
             modelBuilder.Entity("WA1.Models.Movie", b =>
                 {
                     b.Property<int>("Id")
@@ -175,21 +135,6 @@ namespace WA1.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Team");
-                });
-
-            modelBuilder.Entity("HeroMission", b =>
-                {
-                    b.HasOne("WA1.Models.Hero", null)
-                        .WithMany()
-                        .HasForeignKey("HeroesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WA1.Models.Mission", null)
-                        .WithMany()
-                        .HasForeignKey("MissionsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("HeroMovie", b =>

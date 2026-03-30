@@ -19,5 +19,8 @@ namespace WA1.Models
         public int TeamId { get; set; }
         public virtual Team Team { get; set; }
         public ICollection<Movie> Movies { get; set; } = new List<Movie>();
+        public int? CategoryId { get; set; }
+        public virtual Category? Category { get; set; }
+        public ICollection<Mission> Missions { get; set; } = new List<Mission>();
     }
 }

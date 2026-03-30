@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WA1.Data;
 
@@ -11,9 +12,11 @@ using WA1.Data;
 namespace WA1.Migrations
 {
     [DbContext(typeof(HeroesContext))]
-    partial class HeroesContextModelSnapshot : ModelSnapshot
+    [Migration("20260330072617_MtM_AddMission")]
+    partial class MtM_AddMission
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
