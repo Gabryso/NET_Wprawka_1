@@ -1,0 +1,65 @@
+﻿@model WA1.Models.Hero
+
+@{
+    ViewData["Title"] = "Szczegóły bohatera";
+}
+
+<h1>@Model.Name</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Imię</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.FirstName)</dd>
+
+        <dt class="col-sm-2">Nazwisko</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.LastName)</dd>
+
+        <dt class="col-sm-2">Bio</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Bio)</dd>
+
+        <dt class="col-sm-2">Zespół</dt>
+        <dd class="col-sm-10">@(Model.Team?.Name ?? "Brak")</dd>
+
+        <dt class="col-sm-2">Kategoria</dt>
+        <dd class="col-sm-10">@(Model.Category?.Name ?? "Brak")</dd>
+
+        <dt class="col-sm-2">Filmy</dt>
+        <dd class="col-sm-10">
+            @if (Model.Movies != null && Model.Movies.Any())
+            {
+                <ul>
+                    @foreach (var movie in Model.Movies)
+                    {
+                        <li>@movie.Title</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <span>Brak</span>
+            }
+        </dd>
+
+        <dt class="col-sm-2">Misje</dt>
+        <dd class="col-sm-10">
+            @if (Model.Missions != null && Model.Missions.Any())
+            {
+                <ul>
+                    @foreach (var mission in Model.Missions)
+                    {
+                        <li>@mission.Name</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <span>Brak</span>
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edytuj</a> |
+    <a asp-action="Index">Powrót do listy</a>
+</div>

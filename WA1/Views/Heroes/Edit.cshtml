@@ -1,0 +1,33 @@
+﻿@model WA1.Models.Hero
+
+@{
+    ViewData["Title"] = "Edytuj bohatera";
+}
+
+<h1>Edytuj bohatera</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="Id" />
+            <!-- reszta pól identyczna jak w Create -->
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <!-- ... pozostałe pola ... -->
+            <div class="form-group mt-3">
+                <input type="submit" value="Zapisz" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

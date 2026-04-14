@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Zapisane w sesji";
+}
+
+<h2>Dane zapisane w sesji</h2>
+
+@if (ViewBag.Hero != null)
+{
+    <div class="alert alert-success">
+        <p>Ostatnio utworzony bohater: <strong>@ViewBag.Hero.Name</strong></p>
+        <p>Imię: @ViewBag.Hero.FirstName, Nazwisko: @ViewBag.Hero.LastName</p>
+        <p>Bio: @ViewBag.Hero.Bio</p>
+    </div>
+}
+else
+{
+    <p>Brak danych w sesji.</p>
+}
+<a asp-action="Index" class="btn btn-secondary">Powrót do listy</a>
+<li class="nav-item">
+    <a class="nav-link text-dark" asp-area="" asp-controller="Heroes" asp-action="SavedInSession">Zapisane w sesji</a>
+</li>
