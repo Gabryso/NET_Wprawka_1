@@ -68,8 +68,11 @@ namespace WA1.Controllers
         {
             if (ModelState.IsValid)
             {
+                hero.Movies ??= new List<Movie>();
+                hero.Missions ??= new List<Mission>();
+
                 _context.Add(hero);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(); // Zapisujemy bohatera, by dostał ID
 
                 if (selectedMovies != null)
                 {
@@ -77,14 +80,6 @@ namespace WA1.Controllers
                     {
                         var movie = await _context.Movie.FindAsync(movieId);
                         if (movie != null) hero.Movies.Add(movie);
-                    }
-                }
-                if (selectedMissions != null)
-                {
-                    foreach (var missionId in selectedMissions)
-                    {
-                        var mission = await _context.Mission.FindAsync(missionId);
-                        if (mission != null) hero.Missions.Add(mission);
                     }
                 }
                 await _context.SaveChangesAsync();

@@ -31,14 +31,51 @@ namespace WA1
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthorization();
-            app.UseSession();
+            
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+            //Halo halo londyn?
+            // Seedowanie przyk³adowych danych przy starcie
+            using (var scope = app.Services.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<WA1.Data.HeroesContext>();
+
+                // Zespo³y (10)
+                var teams = new[]
+                {
+        "Avengers", "Justice League", "X-Men", "Fantastic Four", "Guardians of the Galaxy",
+        "Suicide Squad", "Teen Titans", "The Seven", "The Boys", "Legion of Super-Heroes"
+    };
+                foreach (var name in teams)
+                    if (!context.Team.Any(t => t.Name == name))
+                        context.Team.Add(new WA1.Models.Team { Name = name });
+
+                // Kategorie (3)
+                var categories = new[] { "Human", "Alien", "Mutant" };
+                foreach (var name in categories)
+                    if (!context.Category.Any(c => c.Name == name))
+                        context.Category.Add(new WA1.Models.Category { Name = name });
+
+                // Filmy (5)
+                var movies = new[] { "Endgame", "Infinity War", "Civil War", "Age of Ultron", "Dark Phoenix" };
+                foreach (var title in movies)
+                    if (!context.Movie.Any(m => m.Title == title))
+                        context.Movie.Add(new WA1.Models.Movie { Title = title });
+
+                // Misje (5)
+                var missions = new[] { "Save the world", "Defeat Thanos", "Rescue the president", "Stop the bomb", "Find the crystal" };
+                foreach (var name in missions)
+                    if (!context.Mission.Any(m => m.Name == name))
+                        context.Mission.Add(new WA1.Models.Mission { Name = name, StartDate = DateTime.Now, Location = "Unknown" });
+
+                context.SaveChanges(); // zapisz wszystkie zmiany
+            }
+            //Tu londyn!
 
             app.Run();
         }
